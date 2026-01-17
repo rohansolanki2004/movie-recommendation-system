@@ -1,37 +1,74 @@
-# movie-recommendation-system
-import streamlit as st
-import pickle
-import pandas as pd
+# 🎬 Movie Recommendation System
 
-def recommend(movie):
-    movie_index = movies[movies['title'] == movie].index[0]
-    distances = similarity[movie_index]
-    movies_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:6]
+A personalized **Movie Recommendation System** built using **Python**, **Pandas**, and **Scikit-learn**.  
+The system recommends movies similar to a user-selected movie by analyzing movie metadata and applying **machine learning–based similarity techniques**.
 
-    recommended_movies = []
-    for i in movies_list:
-        movie_id=i[0]
-        #fetch poster from api
-        recommended_movies.append(movies.iloc[i[0]].title)
-    return recommended_movies
+---
 
+## 📌 Project Overview
 
-# Load data
-movies_dict = pickle.load(open('movies_dict.pkl', 'rb'))
-movies = pd.DataFrame(movies_dict)
+This project demonstrates how data preprocessing and feature extraction can be combined with **content-based filtering** to generate relevant movie recommendations.
 
-similarity = pickle.load(open('similarity.pkl', 'rb'))
+The model takes a movie name as input and returns a list of similar movies based on textual and numerical features extracted from the dataset.
 
-st.title("Movie Recommender System")
+---
 
-# Dropdown
-selected_movie_name = st.selectbox(
-    "Select a movie",
-    movies['title'].values
-)
+## 🚀 Features
 
-# Button
-if st.button("Recommend"):
-    recommendations = recommend(selected_movie_name)
-    for i in recommendations:
-        st.write(i)
+- 🔍 Accepts a movie title as user input  
+- 🤖 Recommends similar movies using **cosine similarity**
+- 🧹 Data preprocessing and cleaning for better accuracy
+- 🧠 Feature extraction from movie metadata (genres, keywords, cast, crew, etc.)
+- ⚡ Efficient and scalable recommendation pipeline
+
+---
+
+## 🛠️ Technologies Used
+
+- **Python**
+- **Pandas**
+- **NumPy**
+- **Scikit-learn**
+- **Jupyter Notebook**
+
+---
+
+## 📂 Dataset
+
+- TMDB 5000 Movies Dataset  
+- TMDB 5000 Credits Dataset  
+
+These datasets include information such as:
+- Movie titles
+- Genres
+- Cast & crew
+- Keywords
+- Overview
+
+---
+
+## ⚙️ How It Works
+
+1. **Data Loading**  
+   Load movie and credits datasets using Pandas.
+
+2. **Data Preprocessing**  
+   - Merge datasets  
+   - Handle missing values  
+   - Extract and clean important features  
+
+3. **Feature Engineering**  
+   Combine relevant attributes into a single feature vector.
+
+4. **Similarity Calculation**  
+   Use **Cosine Similarity** to measure similarity between movies.
+
+5. **Recommendation**  
+   Given a movie name, return the top similar movies.
+
+---
+
+## ▶️ Usage
+
+```python
+recommend("Avatar")
